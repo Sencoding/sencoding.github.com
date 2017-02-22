@@ -415,6 +415,39 @@ function Sliders(array, outputElem, width, height){
 				}
 			}, TimeInMs * 2);
 		}
+		else if(animType == 'Rotate'){
+			var degrees = 0;
+			setInterval(function(){
+				Fade_i++;
+				degrees += 180;
+				if(Fade_i < SlideSrcArr.length){
+					document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
+					Slider.style.transform = 'rotate('+degrees+'deg)';
+					SliderText.style.opacity = 0;
+					setTimeout(function(){
+						Slider.src = SlideSrcArr[Fade_i];
+						SliderText.innerHTML = TextArr[Fade_i];
+						document.getElementById("DiaDot"+(Fade_i + 1)).className = 'dot active';
+						degrees += 180;
+						Slider.style.transform = 'rotate('+degrees+'deg)';
+					    SliderText.style.opacity = 1;
+					}, animTime / 2);
+				}else { 
+					document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
+					Fade_i = 0;
+					Slider.style.transform = 'rotate(0)';
+					SliderText.style.opacity = 0;
+					setTimeout(function(){
+						Slider.src = SlideSrcArr[Fade_i];
+						SliderText.innerHTML = TextArr[Fade_i];
+						document.getElementById("DiaDot"+(Fade_i + 1)).className = 'dot active';
+						degrees += 180;
+						Slider.style.transform = 'rotate('+degrees+'deg)';
+					    SliderText.style.opacity = 1;
+					}, animTime / 2);
+				}
+			}, TimeInMs * 2);
+		}
 	}
 	function loadAllImages(){
 		for(var i = 0; i < SlideSrcArr.length; i++){
