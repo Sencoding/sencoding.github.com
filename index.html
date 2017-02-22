@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SlidePlayer Script</title>
+<link rel="stylesheet" type="text/css" href="main.css"/>
+<script src="https://use.fontawesome.com/db56664126.js"></script>
+</head>
+<body>
+<script src="Sliders.js"></script>
+<div id="SliderSlide"></div>
+<script>
+var SlideArr = [];
+SlideArr[0] = 'http://wallpaperspoints.com/wp-content/uploads/2013/05/grey-backgrounds-black-shade-wallpper-500x400.jpg';
+SlideArr[1] = 'http://creativefan.com/files/2010/01/Pepper_Project_Wallpaper_by_PepperProject-500x400.jpg';
+SlideArr[2] = 'http://img.psdvault.com/2009/08/Feral_Nova_by_alexiuss-500x400.jpg';
+SlideArr[3] = 'http://iwritealot.com/wp-content/uploads/2012/07/Wallpaper_by_BajuszGG-500x400.jpg';
+SlideArr[4] = 'http://www.shximai.com/data/out/56/68240846-disturbing-wallpapers.jpg';
+SlideArr[5] = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/IMG_Mauritius_Roundel.svg/2000px-IMG_Mauritius_Roundel.svg.png';
+var SlideSlider = new Sliders(SlideArr, 'SliderSlide', 500, 400);
+SlideSlider.Animate(4000, 2000, 'Scale');
+var TextArr = [];
+TextArr[0] = 'This is image 1';
+TextArr[1] = 'This is image 2';
+TextArr[2] = 'This is image 3';
+TextArr[3] = 'This is image 4';
+TextArr[4] = 'This is image 5';
+TextArr[5] = 'This is image 6';
+SlideSlider.AddText(TextArr);
+SlideSlider.FadeText();
+</script>
+</body>
+</html>
