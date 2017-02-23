@@ -10,6 +10,128 @@ var Volgende;
 var output;
 var PreviewImg;
 var SlideBox;
+var degrees;
+var DoSlide = function(WhichButton){
+	var SlideWidth = Slider.width * 2;
+	Slider.style = 'height:'+SlideBox.style.height+';transition:all '+TimeInMs+'ms ease-in-out 0s;opacity:1;';
+	Slider.style.marginLeft = SlideWidth+'px';
+	if(WhichButton == 'Previous'){
+		document.getElementById("DiaDot"+(Fade_i + 2)+"").className = 'dot';
+	}else if(WhichButton == 'Next'){
+		document.getElementById("DiaDot"+(Fade_i)+"").className = 'dot';
+	}
+	if(Fade_i < 0 && WhichButton == 'Previous'){
+		Fade_i = SlideSrcArr.length - 1;
+	}
+	else if(Fade_i >= SlideSrcArr.length && WhichButton == 'Next'){
+		Fade_i = 0;
+	}	
+	setTimeout(function(){
+		Slider.src = SlideSrcArr[Fade_i];
+		document.getElementById("DiaDot"+(Fade_i + 1)+"").className = 'dot active';
+		Slider.style.animation = 'slide-margin '+TimeInMs+'ms ease-in-out 1 forwards';
+	}, TimeInMs);
+};
+var DoRotate = function(WhichButton){
+	if(WhichButton == 'Next'){
+		degrees += 180;
+	}else if(WhichButton == 'Previous'){
+		degrees -= 180;
+	}
+	Slider.style.transform = 'rotate('+degrees+'deg)';
+	if(WhichButton == 'Previous' && Fade_i >= 0){
+		document.getElementById('DiaDot'+(Fade_i + 2)).className = 'dot';
+		document.getElementById('DiaDot'+(Fade_i + 1)).className = 'dot active';
+	}else if(WhichButton == 'Next' && Fade_i < SlideSrcArr.length){
+		document.getElementById('DiaDot'+(Fade_i)).className = 'dot';
+		document.getElementById('DiaDot'+(Fade_i + 1)).className = 'dot active';
+	}
+	if(Fade_i < 0 && WhichButton == 'Previous'){
+		document.getElementById('DiaDot'+(Fade_i + 2)).className = 'dot';
+		Fade_i = SlideSrcArr.length - 1;
+		document.getElementById('DiaDot'+(Fade_i + 1)).className = 'dot active';
+	}
+	else if(Fade_i >= SlideSrcArr.length && WhichButton == 'Next'){
+		document.getElementById('DiaDot'+(Fade_i)).className = 'dot';
+		Fade_i = 0;
+		document.getElementById('DiaDot'+(Fade_i + 1)).className = 'dot active';
+	}
+	setTimeout(function(){
+		Slider.src = SlideSrcArr[Fade_i];
+		if(WhichButton == 'Next'){
+			degrees += 180;
+		}else if(WhichButton == 'Previous'){
+			degrees -= 180;
+		}
+		Slider.style.transform = 'rotate('+degrees+'deg)';
+	}, TimeInMs);
+};
+var DoScale = function(WhichButton){
+	Slider.style.transform = 'scale(0)';
+	if(Fade_i >= 0 && WhichButton == 'Previous'){
+		document.getElementById("DiaDot"+(Fade_i + 2)).className = 'dot';
+	}
+	if(Fade_i < SlideSrcArr.length && WhichButton == 'Next'){
+		document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
+	}
+	setTimeout(function(){
+		if(Fade_i < 0 && WhichButton == 'Previous'){
+			document.getElementById("DiaDot"+(Fade_i + 2)).className = 'dot';
+			Fade_i = SlideSrcArr.length - 1;
+		}
+		if(Fade_i >= SlideSrcArr.length && WhichButton == 'Next'){
+			document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
+			Fade_i = 0;
+		}
+		document.getElementById("DiaDot"+(Fade_i + 1)).className = 'dot active';
+		Slider.src = SlideSrcArr[Fade_i];
+		Slider.style.transform = 'scale(1)';
+	}, TimeInMs);
+}
+var ChooseAnimType = function(type){
+	window.addEventListener('keyup', function(e){
+			switch(e.keyCode){
+				case 39:
+				Fade_i++;
+				switch(type){
+				case 'Scale':
+					DoScale('Next');
+				break;
+				case 'Rotate':
+				    DoRotate('Next');
+				break;
+				case 'Slide':
+					DoSlide('Next');
+				break;
+				}
+				if(Fade_i >= SlideSrcArr.length){
+				document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
+				Fade_i = 0;
+				}
+				GoToDia(Fade_i+1);
+				break;
+				case 37:
+				Fade_i--;
+				switch(type){
+				case 'Scale':
+					DoScale('Previous');
+				break;
+				case 'Rotate':
+				    DoRotate('Previous');
+				break;
+				case 'Slide':
+					DoSlide('Previous');
+				break;
+				}
+				if(Fade_i < 0){
+					document.getElementById("DiaDot"+(Fade_i + 2)).className = 'dot';
+					Fade_i = SlideSrcArr.length - 1;
+				}
+				GoToDia(Fade_i+1);
+				break;
+			}	
+	});
+}
 var ChooseOpacity = function(){
 	Slider.style.opacity = 0;	
 	setTimeout(function(){
@@ -128,28 +250,7 @@ function Sliders(array, outputElem, width, height){
 		TimeInMs = time;
 		document.getElementById("DiaDot1").className = 'dot active';
 		Slider.style.transition = 'all '+TimeInMs+'ms ease-in-out';
-		var DoScale = function(WhichButton){
-			Slider.style.transform = 'scale(0)';
-			    if(Fade_i >= 0 && WhichButton == 'Previous'){
-					document.getElementById("DiaDot"+(Fade_i + 2)).className = 'dot';
-				}
-				if(Fade_i < SlideSrcArr.length && WhichButton == 'Next'){
-					document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
-				}
-				setTimeout(function(){
-					if(Fade_i < 0 && WhichButton == 'Previous'){
-						document.getElementById("DiaDot"+(Fade_i + 2)).className = 'dot';
-						Fade_i = SlideSrcArr.length - 1;
-					}
-					if(Fade_i >= SlideSrcArr.length && WhichButton == 'Next'){
-						document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
-						Fade_i = 0;
-					}
-					document.getElementById("DiaDot"+(Fade_i + 1)).className = 'dot active';
-					Slider.src = SlideSrcArr[Fade_i];
-					Slider.style.transform = 'scale(1)';
-			}, TimeInMs);
-		}
+		ChooseAnimType('Scale');
 		Vorige.addEventListener("click",function(){
 			Fade_i--;
 			DoScale('Previous');
@@ -163,41 +264,8 @@ function Sliders(array, outputElem, width, height){
 		TimeInMs = time;
 		document.getElementById("DiaDot1").className = 'dot active';
 		Slider.style.transition = 'all '+TimeInMs+'ms ease-in-out';
-		var degrees = 0;
-		var DoRotate = function(WhichButton){
-			if(WhichButton == 'Next'){
-				degrees += 180;
-			}else if(WhichButton == 'Previous'){
-				degrees -= 180;
-			}
-			Slider.style.transform = 'rotate('+degrees+'deg)';
-			if(WhichButton == 'Previous' && Fade_i >= 0){
-				document.getElementById('DiaDot'+(Fade_i + 2)).className = 'dot';
-				document.getElementById('DiaDot'+(Fade_i + 1)).className = 'dot active';
-			}else if(WhichButton == 'Next' && Fade_i < SlideSrcArr.length){
-				document.getElementById('DiaDot'+(Fade_i)).className = 'dot';
-				document.getElementById('DiaDot'+(Fade_i + 1)).className = 'dot active';
-			}
-			if(Fade_i < 0 && WhichButton == 'Previous'){
-				document.getElementById('DiaDot'+(Fade_i + 2)).className = 'dot';
-				Fade_i = SlideSrcArr.length - 1;
-				document.getElementById('DiaDot'+(Fade_i + 1)).className = 'dot active';
-			}
-			else if(Fade_i >= SlideSrcArr.length && WhichButton == 'Next'){
-				document.getElementById('DiaDot'+(Fade_i)).className = 'dot';
-				Fade_i = 0;
-				document.getElementById('DiaDot'+(Fade_i + 1)).className = 'dot active';
-			}
-			setTimeout(function(){
-				Slider.src = SlideSrcArr[Fade_i];
-				if(WhichButton == 'Next'){
-					degrees += 180;
-			    }else if(WhichButton == 'Previous'){
-					degrees -= 180;
-			    }
-				Slider.style.transform = 'rotate('+degrees+'deg)';
-			}, TimeInMs);
-		};
+		degrees = 0;
+		ChooseAnimType('Rotate');
 		Vorige.addEventListener("click", function(){
 			Fade_i--;
 			DoRotate('Previous');
@@ -210,34 +278,14 @@ function Sliders(array, outputElem, width, height){
 	this.Slide = function(time){
 		TimeInMs = time;
 		document.getElementById("DiaDot1").className = 'dot active';
-		var SlideWidth = Slider.width * 2;
-		var GetSlide = function(WhichButton){
-			Slider.style = 'height:'+SlideBox.style.height+';transition:all '+TimeInMs+'ms ease-in-out 0s;opacity:1;';
-			Slider.style.marginLeft = SlideWidth+'px';
-			if(WhichButton == 'Previous'){
-				document.getElementById("DiaDot"+(Fade_i + 2)+"").className = 'dot';
-			}else if(WhichButton == 'Next'){
-				document.getElementById("DiaDot"+(Fade_i)+"").className = 'dot';
-			}
-			if(Fade_i < 0 && WhichButton == 'Previous'){
-				Fade_i = SlideSrcArr.length - 1;
-			}
-			else if(Fade_i >= SlideSrcArr.length && WhichButton == 'Next'){
-				Fade_i = 0;
-			}	
-			setTimeout(function(){
-				Slider.src = SlideSrcArr[Fade_i];
-				document.getElementById("DiaDot"+(Fade_i + 1)+"").className = 'dot active';
-				Slider.style.animation = 'slide-margin '+TimeInMs+'ms ease-in-out 1 forwards';
-			}, TimeInMs);
-		};
+		ChooseAnimType('Slide');
 		Vorige.addEventListener("click", function(){
 			Fade_i--;
-			GetSlide('Previous');
+			DoSlide('Previous');
 			});
 		Volgende.addEventListener("click", function(){
 			Fade_i++;
-			GetSlide('Next');
+			DoSlide('Next');
 		});
 	}
 	this.Fade = function(time){
@@ -385,7 +433,7 @@ function Sliders(array, outputElem, width, height){
 						SliderText.style.opacity = 1;
 					}, animTime / 2);
 				}
-			}, TimeInMs * 2);
+			}, TimeInMs + (animTime / 2));
 		}else if(animType == 'Scale'){
 			setInterval(function(){
 				Fade_i++;
@@ -413,7 +461,7 @@ function Sliders(array, outputElem, width, height){
 					    SliderText.style.opacity = 1;
 					}, animTime / 2);
 				}
-			}, TimeInMs * 2);
+			}, TimeInMs + (animTime / 2));
 		}
 		else if(animType == 'Rotate'){
 			var degrees = 0;
@@ -431,7 +479,7 @@ function Sliders(array, outputElem, width, height){
 						degrees += 180;
 						Slider.style.transform = 'rotate('+degrees+'deg)';
 					    SliderText.style.opacity = 1;
-					}, animTime / 2);
+					}, (animTime / 2));
 				}else { 
 					document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
 					Fade_i = 0;
@@ -444,9 +492,9 @@ function Sliders(array, outputElem, width, height){
 						degrees += 180;
 						Slider.style.transform = 'rotate('+degrees+'deg)';
 					    SliderText.style.opacity = 1;
-					}, animTime / 2);
+					}, (animTime / 2));
 				}
-			}, TimeInMs * 2);
+			}, TimeInMs + (animTime / 2));
 		}
 	}
 	function loadAllImages(){
