@@ -89,7 +89,15 @@ var DoScale = function(WhichButton){
 	}, TimeInMs);
 }
 var ChooseAnimType = function(type){
+	var bool = false;
+	output.addEventListener('mouseover', function(){
+		bool = true;
+	});
+	output.addEventListener('mouseout', function(){
+		bool = false;
+	});
 	window.addEventListener('keyup', function(e){
+		if(bool){
 			switch(e.keyCode){
 				case 39:
 				Fade_i++;
@@ -98,7 +106,7 @@ var ChooseAnimType = function(type){
 					DoScale('Next');
 				break;
 				case 'Rotate':
-				    DoRotate('Next');
+					DoRotate('Next');
 				break;
 				case 'Slide':
 					DoSlide('Next');
@@ -109,6 +117,7 @@ var ChooseAnimType = function(type){
 				Fade_i = 0;
 				}
 				GoToDia(Fade_i+1);
+				Slider.style.opacity = 1;
 				break;
 				case 37:
 				Fade_i--;
@@ -117,7 +126,7 @@ var ChooseAnimType = function(type){
 					DoScale('Previous');
 				break;
 				case 'Rotate':
-				    DoRotate('Previous');
+					DoRotate('Previous');
 				break;
 				case 'Slide':
 					DoSlide('Previous');
@@ -128,12 +137,14 @@ var ChooseAnimType = function(type){
 					Fade_i = SlideSrcArr.length - 1;
 				}
 				GoToDia(Fade_i+1);
+				Slider.style.opacity = 1;
 				break;
-			}	
+			}
+		}
 	});
 }
 var ChooseOpacity = function(){
-	Slider.style.opacity = 0;	
+	Slider.style.opacity = 0;
 	setTimeout(function(){
 		Slider.style.opacity = 1;
 	},TimeInMs);
@@ -175,6 +186,10 @@ function GoToDia(value){
 }
 //This is the main function for the whole project
 function Sliders(array, outputElem, width, height){
+	if(width < 250 && height < 200){
+		width = 250;
+		height = 200;
+	}
 	this.array = array;
 	SlideSrcArr = this.array;
 	//settings SlideBox Div and in here goes the Centered Slider and the Overlay as you can see in the SBox.innerHTML
@@ -246,6 +261,27 @@ function Sliders(array, outputElem, width, height){
 	SliderText = document.getElementById("SliderText");
 	Vorige = document.getElementById("Previous");
 	Volgende = document.getElementById("Next");
+	if(height < 400){
+		SliderText.style.maxHeight = '1.3em';
+		SliderText.style.bottom = '100px';
+	}
+	if(width == 250 && height == 200){
+		var SlidePointsDiv = document.getElementById("SlidePoints");
+		SlidePointsDiv.style.width = width - 85 + "px";
+		SlidePointsDiv.style.textAlign = 'center';
+		for(var i = 0; i < SlideSrcArr.length; i++){
+			var dot = document.getElementById("DiaDot"+(i + 1)+"");
+			dotspwidth = parseInt(SlidePointsDiv.style.width.split("px")[0]);
+			dotsize =  dotspwidth - (SlideSrcArr.length * 15);
+			dotmargin = dotsize / (SlideSrcArr.length * 2);
+			dot.style.margin = dotmargin + "px";
+		}
+	}else{
+		for(var i = 0; i < SlideSrcArr.length; i++){
+			var dot = document.getElementById("DiaDot"+(i + 1)+"");
+			dot.style.marginLeft = '10px';
+		}
+	}
 	this.Scale = function(time){
 		TimeInMs = time;
 		document.getElementById("DiaDot1").className = 'dot active';
@@ -497,6 +533,13 @@ function Sliders(array, outputElem, width, height){
 			}, TimeInMs + (animTime / 2));
 		}
 	}
+	this.DotsColorFixed = function(color, hoverColor){
+		for(var i = 0; i < SlideSrcArr.length; i++){
+			var dot = document.getElementById("DiaDot"+(i + 1)+"");
+			dot.style.backgroundColor = color;
+		}
+	};
+	
 	function loadAllImages(){
 		for(var i = 0; i < SlideSrcArr.length; i++){
 			var img = new Image();
