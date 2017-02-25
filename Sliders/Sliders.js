@@ -1,3 +1,4 @@
+'use strict';
 var TimeInMs;
 var Fade_i;
 var Slider;
@@ -8,6 +9,7 @@ var TextArr;
 var Vorige;
 var Volgende;
 var output;
+var outputName;
 var PreviewImg;
 var SlideBox;
 var degrees;
@@ -27,9 +29,9 @@ var DoSlide = function(WhichButton){
 	Slider.style = 'height:'+SlideBox.style.height+';transition:all '+TimeInMs+'ms ease-in-out 0s;opacity:1;';
 	Slider.style.marginLeft = SlideWidth+'px';
 	if(WhichButton == 'Previous'){
-		document.getElementById("DiaDot"+(Fade_i + 2)+"").className = 'dot';
+		document.getElementById("DiaDot"+(Fade_i + 2)+"-"+outputName).className = 'dot';
 	}else if(WhichButton == 'Next'){
-		document.getElementById("DiaDot"+(Fade_i)+"").className = 'dot';
+		document.getElementById("DiaDot"+(Fade_i)+"-"+outputName).className = 'dot';
 	}
 	if(Fade_i < 0 && WhichButton == 'Previous'){
 		Fade_i = SlideSrcArr.length - 1;
@@ -39,7 +41,7 @@ var DoSlide = function(WhichButton){
 	}	
 	setTimeout(function(){
 		Slider.src = SlideSrcArr[Fade_i];
-		document.getElementById("DiaDot"+(Fade_i + 1)+"").className = 'dot active';
+		document.getElementById("DiaDot"+(Fade_i + 1)+"-"+outputName).className = 'dot active';
 		Slider.style.animation = 'slide-margin '+TimeInMs+'ms ease-in-out 1 forwards';
 	}, TimeInMs);
 };
@@ -51,21 +53,21 @@ var DoRotate = function(WhichButton){
 	}
 	Slider.style.transform = 'rotate('+degrees+'deg)';
 	if(WhichButton == 'Previous' && Fade_i >= 0){
-		document.getElementById('DiaDot'+(Fade_i + 2)).className = 'dot';
-		document.getElementById('DiaDot'+(Fade_i + 1)).className = 'dot active';
+		document.getElementById('DiaDot'+(Fade_i + 2)+"-"+outputName).className = 'dot';
+		document.getElementById('DiaDot'+(Fade_i + 1)+"-"+outputName).className = 'dot active';
 	}else if(WhichButton == 'Next' && Fade_i < SlideSrcArr.length){
-		document.getElementById('DiaDot'+(Fade_i)).className = 'dot';
-		document.getElementById('DiaDot'+(Fade_i + 1)).className = 'dot active';
+		document.getElementById('DiaDot'+(Fade_i)+"-"+outputName).className = 'dot';
+		document.getElementById('DiaDot'+(Fade_i + 1)+"-"+outputName).className = 'dot active';
 	}
 	if(Fade_i < 0 && WhichButton == 'Previous'){
-		document.getElementById('DiaDot'+(Fade_i + 2)).className = 'dot';
+		document.getElementById('DiaDot'+(Fade_i + 2)+"-"+outputName).className = 'dot';
 		Fade_i = SlideSrcArr.length - 1;
-		document.getElementById('DiaDot'+(Fade_i + 1)).className = 'dot active';
+		document.getElementById('DiaDot'+(Fade_i + 1)+"-"+outputName).className = 'dot active';
 	}
 	else if(Fade_i >= SlideSrcArr.length && WhichButton == 'Next'){
-		document.getElementById('DiaDot'+(Fade_i)).className = 'dot';
+		document.getElementById('DiaDot'+(Fade_i)+"-"+outputName).className = 'dot';
 		Fade_i = 0;
-		document.getElementById('DiaDot'+(Fade_i + 1)).className = 'dot active';
+		document.getElementById('DiaDot'+(Fade_i + 1)+"-"+outputName).className = 'dot active';
 	}
 	setTimeout(function(){
 		Slider.src = SlideSrcArr[Fade_i];
@@ -80,21 +82,21 @@ var DoRotate = function(WhichButton){
 var DoScale = function(WhichButton){
 	Slider.style.transform = 'scale(0)';
 	if(Fade_i >= 0 && WhichButton == 'Previous'){
-		document.getElementById("DiaDot"+(Fade_i + 2)).className = 'dot';
+		document.getElementById("DiaDot"+(Fade_i + 2)+"-"+outputName).className = 'dot';
 	}
 	if(Fade_i < SlideSrcArr.length && WhichButton == 'Next'){
-		document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
+		document.getElementById("DiaDot"+(Fade_i)+"-"+outputName).className = 'dot';
 	}
 	setTimeout(function(){
 		if(Fade_i < 0 && WhichButton == 'Previous'){
-			document.getElementById("DiaDot"+(Fade_i + 2)).className = 'dot';
+			document.getElementById("DiaDot"+(Fade_i + 2)+"-"+outputName).className = 'dot';
 			Fade_i = SlideSrcArr.length - 1;
 		}
 		if(Fade_i >= SlideSrcArr.length && WhichButton == 'Next'){
-			document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
+			document.getElementById("DiaDot"+(Fade_i)+"-"+outputName).className = 'dot';
 			Fade_i = 0;
 		}
-		document.getElementById("DiaDot"+(Fade_i + 1)).className = 'dot active';
+		document.getElementById("DiaDot"+(Fade_i + 1)+"-"+outputName).className = 'dot active';
 		Slider.src = SlideSrcArr[Fade_i];
 		Slider.style.transform = 'scale(1)';
 	}, TimeInMs);
@@ -124,7 +126,7 @@ var ChooseAnimType = function(type){
 				break;
 				}
 				if(Fade_i >= SlideSrcArr.length){
-				document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
+				document.getElementById("DiaDot"+(Fade_i)+"-"+outputName).className = 'dot';
 				Fade_i = 0;
 				}
 				GoToDia(Fade_i+1);
@@ -144,7 +146,7 @@ var ChooseAnimType = function(type){
 				break;
 				}
 				if(Fade_i < 0){
-					document.getElementById("DiaDot"+(Fade_i + 2)).className = 'dot';
+					document.getElementById("DiaDot"+(Fade_i + 2)+"-"+outputName).className = 'dot';
 					Fade_i = SlideSrcArr.length - 1;
 				}
 				GoToDia(Fade_i+1);
@@ -162,11 +164,11 @@ var ChooseOpacity = function(){
 };
 var HidePreviewImg = function(value){
 	document.getElementById("triangle"+value).style.display = 'none';
-	document.getElementById("PreviewImgDiv").style.display = 'none';
+	document.getElementById("PreviewImgDiv-"+outputName).style.display = 'none';
 };
 var ShowPreviewImg = function(value){
-	var PreviewImgDiv = document.getElementById("PreviewImgDiv");
-	var PreviewImg = document.getElementById("PreviewImg");
+	var PreviewImgDiv = document.getElementById("PreviewImgDiv-"+outputName);
+	var PreviewImg = document.getElementById("PreviewImg-"+outputName);
 	PreviewImg.src = SlideSrcArr[value - 1];
 	PreviewImgDiv.style.display = '';
 	document.getElementById("triangle"+value).style.display = '';
@@ -174,13 +176,13 @@ var ShowPreviewImg = function(value){
 	PreviewImgDiv.style.width = PreviewImg.width + "px";
 	PreviewImgDiv.style.marginTop = "-110px";
 	PreviewImgDiv.style.marginLeft = 0 - (PreviewImg.width / 2) + "px";
-	document.getElementById('DiaDot'+value).appendChild(PreviewImgDiv);
+	document.getElementById('DiaDot'+value+'-'+outputName).appendChild(PreviewImgDiv);
 };
 /*   This function says wich dia The Text and The Slider needs too go to,
      this is for the dots as you can see in the dot elements by onclick     */
 function GoToDia(value){
 	ChooseOpacity();
-	document.getElementById("DiaDot"+(Fade_i + 1)+"").className = 'dot';
+	document.getElementById("DiaDot"+(Fade_i + 1)+"-"+outputName).className = 'dot';
 	Slider.style.transition = 'all '+TimeInMs+'ms ease-in-out';
 	Slider.style.height = output.style.height;
 	SliderText.style.transition = 'all '+TimeInMs+'ms ease-in-out';
@@ -189,7 +191,7 @@ function GoToDia(value){
 		Slider.src = SlideSrcArr[value - 1];
 		SliderText.innerHTML = TextArr[value - 1];
 		SliderText.style.opacity = 1;
-		document.getElementById("DiaDot"+value+"").className = 'dot active';
+		document.getElementById("DiaDot"+value+"-"+outputName).className = 'dot active';
 	},TimeInMs);
 	if(Fade_i >= 0 && Fade_i < SlideSrcArr.length){
 		Fade_i = value - 1;
@@ -197,7 +199,7 @@ function GoToDia(value){
 }
 //This is the main function for the whole project
 function Sliders(array, outputElem, width, height){
-	ExtensionSheets();
+	outputName = outputElem;
 	if(width < 250 && height < 200){
 		width = 250;
 		height = 200;
@@ -207,40 +209,40 @@ function Sliders(array, outputElem, width, height){
 	//settings SlideBox Div and in here goes the Centered Slider and the Overlay as you can see in the SBox.innerHTML
 	SBox = document.createElement('div');
 	SBox.style = 'overflow:hidden;border-radius:5px;border:2px solid #ddd;background-color:#000;';
-	SBox.id = 'SlideBox';
-	SBox.innerHTML = '<div id="Overlay" style="z-index:0;"></div>'+
-                     '<center><img id="Slider"'+
+	SBox.id = 'SlideBox-'+outputName;
+	SBox.innerHTML = '<div id="Overlay-'+outputName+'" style="z-index:0;"></div>'+
+                     '<center><img id="Slider-'+outputName+'"'+
 					 'src="'+SlideSrcArr[0]+'"'+
 					 'style="opacity:1;width:auto;"></center>';
 	//settings for the Previous Button Div that will be set into the named output
 	var Previous = document.createElement('div');
-	Previous.id = "Previous";
+	Previous.id = "Previous-"+outputName;
 	Previous.className = "slide-btn";
 	Previous.style = "float:left;left:10px;";
 	Previous.innerHTML = '<i class="fa fa-chevron-left btn-fa-style" aria-hidden="true"></i>';
 	//settings for the Next Button Div that will be set into the named output
 	var Next = document.createElement('div');
-	Next.id = "Next";
+	Next.id = "Next-"+outputName;
 	Next.className = "slide-btn";
 	Next.style = "float:right;right:10px;";
 	Next.innerHTML = '<i class="fa fa-chevron-right btn-fa-style" aria-hidden="true"></i>';
 	//settings for the SlidePoints element that will be set into the named output
 	var SlidePoints = document.createElement('div');
-	SlidePoints.id = 'SlidePoints';
+	SlidePoints.id = 'SlidePoints-'+outputName;
 	SlidePoints.style = 'display:inline-block;position:relative;bottom:45px;z-index:9999;';
 	for(var i = 0; i < SlideSrcArr.length; i++){
-		SlidePoints.innerHTML += '<div class="dot" id="DiaDot'+(i + 1)+'" onclick="GoToDia('+(i + 1)+')" onmouseover="ShowPreviewImg('+(i + 1)+');" onmouseout="HidePreviewImg('+(i +1)+');"><div id="triangle'+(i + 1)+'" class="arrow-down" style="display:none;"></div></div>';
+		SlidePoints.innerHTML += '<div class="dot" id="DiaDot'+(i + 1)+'-'+outputName+'" onclick="GoToDia('+(i + 1)+')" onmouseover="ShowPreviewImg('+(i + 1)+');" onmouseout="HidePreviewImg('+(i +1)+');"><div id="triangle'+(i + 1)+'" class="arrow-down" style="display:none;"></div></div>';
 	}
 	//settings for the Text element that will be set into the named output
 	var Text = document.createElement('div');
-	Text.id = 'SliderText';
+	Text.id = 'SliderText-'+outputName;
 	Text.className = 'select';
 	Text.style = 'word-wrap:break-word;max-height: 5.1em;line-height: 1.3em;overflow:hidden;position:relative;bottom:175px;padding-left:40px;padding-right:40px;color:white;text-shadow:2px 2px 1px #000;z-index:999;font-size:16px;font-family:Arial;';
 	//Declaring the Element that will show the preview img if you hover on a dot
 	PreviewImg = document.createElement('div');
-	PreviewImg.id = 'PreviewImgDiv';
+	PreviewImg.id = 'PreviewImgDiv-'+outputName;
 	PreviewImg.style = 'position:relative;bottom:7.5px;padding:10px;background-color:#bbb;border-radius:5px;display:none;';
-	PreviewImg.innerHTML = '<img src="" id="PreviewImg" style="height:75px;width:auto;outline:2px solid #777;">';
+	PreviewImg.innerHTML = '<img src="" id="PreviewImg-'+outputName+'" style="height:75px;width:auto;outline:2px solid #777;">';
 	//searchTerm for getting the named element in the constructor function
 	output = document.getElementById(outputElem);
 	if(width == undefined || height == undefined){
@@ -254,15 +256,16 @@ function Sliders(array, outputElem, width, height){
 	}else{
 	output.innerHTML = SBox.outerHTML + Previous.outerHTML + Next.outerHTML + '<center>' + SlidePoints.outerHTML + '</center>' + PreviewImg.outerHTML + Text.outerHTML;
 	}
-	var overlay = document.getElementById("Overlay");
-	SlideBox = document.getElementById("SlideBox");
+	var overlay = document.getElementById("Overlay-"+outputName);
+	overlay.style = 'position:absolute;border-radius:5px;transition:all .75s ease-in-out;z-index:9999;';
+	SlideBox = document.getElementById("SlideBox-"+outputName);
 	output.addEventListener("mouseover", function(){
     overlay.style.boxShadow = 'inset 0px 0px 30px 0px rgb(0,0,0)';	
 	});
 	output.addEventListener("mouseout", function(){
     overlay.style.boxShadow = 'inset 0px 0px 15px 0px rgb(0,0,0)';
 	});
-	Slider = document.getElementById('Slider');
+	Slider = document.getElementById('Slider-'+outputName);
 	Fade_i = 0;
 	SlideBox.style.width = output.style.width;
 	SlideBox.style.height = output.style.height;
@@ -270,18 +273,18 @@ function Sliders(array, outputElem, width, height){
 	overlay.style.height = SlideBox.style.height;
 	overlay.style.width = SlideBox.style.width;
 	overlay.style.boxShadow = 'inset 0px 0px 15px 0px rgb(0,0,0)';
-	SliderText = document.getElementById("SliderText");
-	Vorige = document.getElementById("Previous");
-	Volgende = document.getElementById("Next");
+	SliderText = document.getElementById("SliderText-"+outputName);
+	Vorige = document.getElementById("Previous-"+outputName);
+	Volgende = document.getElementById("Next-"+outputName);
 	if(height < 400){
 		SliderText.style.maxHeight = '1.3em';
 		SliderText.style.bottom = '100px';
 	}
 	if(width == 250 && height == 200 && SlideSrcArr.length >= 7){
-		var SlidePointsDiv = document.getElementById("SlidePoints");
+		var SlidePointsDiv = document.getElementById("SlidePoints-"+outputName);
 		SlidePointsDiv.style.width = width - 85 + "px";
 		for(var i = 0; i < SlideSrcArr.length; i++){
-			var dot = document.getElementById("DiaDot"+(i + 1)+"");
+			var dot = document.getElementById("DiaDot"+(i + 1)+"-"+outputName);
 			dotspwidth = parseInt(SlidePointsDiv.style.width.split("px")[0]);
 			dotsize =  dotspwidth - (SlideSrcArr.length * 15);
 			dotmargin = dotsize / (SlideSrcArr.length * 2);
@@ -289,13 +292,13 @@ function Sliders(array, outputElem, width, height){
 		}
 	}else{
 		for(var i = 0; i < SlideSrcArr.length; i++){
-			var dot = document.getElementById("DiaDot"+(i + 1)+"");
+			var dot = document.getElementById("DiaDot"+(i + 1)+"-"+outputName);
 			dot.style.marginLeft = '10px';
 		}
 	}
 	this.Scale = function(time){
 		TimeInMs = time;
-		document.getElementById("DiaDot1").className = 'dot active';
+		document.getElementById("DiaDot1-"+outputName).className = 'dot active';
 		Slider.style.transition = 'all '+TimeInMs+'ms ease-in-out';
 		ChooseAnimType('Scale');
 		Vorige.addEventListener("click",function(){
@@ -309,7 +312,7 @@ function Sliders(array, outputElem, width, height){
 	}
 	this.Rotate = function(time){
 		TimeInMs = time;
-		document.getElementById("DiaDot1").className = 'dot active';
+		document.getElementById("DiaDot1-"+outputName).className = 'dot active';
 		Slider.style.transition = 'all '+TimeInMs+'ms ease-in-out';
 		degrees = 0;
 		ChooseAnimType('Rotate');
@@ -324,7 +327,7 @@ function Sliders(array, outputElem, width, height){
 	}
 	this.Slide = function(time){
 		TimeInMs = time;
-		document.getElementById("DiaDot1").className = 'dot active';
+		document.getElementById("DiaDot1-"+outputName).className = 'dot active';
 		ChooseAnimType('Slide');
 		Vorige.addEventListener("click", function(){
 			Fade_i--;
@@ -336,25 +339,25 @@ function Sliders(array, outputElem, width, height){
 		});
 	}
 	this.Fade = function(time){
-		document.getElementById("DiaDot1").className = 'dot active';
+		document.getElementById("DiaDot1-"+outputName).className = 'dot active';
 		TimeInMs = time;
 		Slider.style.transition = 'all '+TimeInMs+'ms ease-in-out';
 	    Vorige.addEventListener("click", function(){
 			Fade_i--;
 			if(Fade_i >= 0){
 				ChooseOpacity();
-				document.getElementById("DiaDot"+(Fade_i + 2)+"").className = 'dot';
+				document.getElementById("DiaDot"+(Fade_i + 2)+"-"+outputName).className = 'dot';
 				setTimeout(function(){	
 					Slider.src = SlideSrcArr[Fade_i];
-					document.getElementById("DiaDot"+(Fade_i + 1)+"").className = 'dot active';
+					document.getElementById("DiaDot"+(Fade_i + 1)+"-"+outputName).className = 'dot active';
 				},(TimeInMs - 50));
 			}else{
 				ChooseOpacity();
-				document.getElementById("DiaDot"+(Fade_i + 2)+"").className = 'dot';
+				document.getElementById("DiaDot"+(Fade_i + 2)+"-"+outputName).className = 'dot';
 				Fade_i = SlideSrcArr.length - 1;		
 				setTimeout(function(){
 					Slider.src = SlideSrcArr[Fade_i];
-					document.getElementById("DiaDot"+(Fade_i + 1)+"").className = 'dot active';
+					document.getElementById("DiaDot"+(Fade_i + 1)+"-"+outputName).className = 'dot active';
 				},(TimeInMs - 50));
 			}
 		});
@@ -362,18 +365,18 @@ function Sliders(array, outputElem, width, height){
 			Fade_i++;
 			if(Fade_i < SlideSrcArr.length){
 				ChooseOpacity();
-				document.getElementById("DiaDot"+(Fade_i)+"").className = 'dot';
+				document.getElementById("DiaDot"+(Fade_i)+"-"+outputName).className = 'dot';
 				setTimeout(function(){	
 					Slider.src = SlideSrcArr[Fade_i];
-					document.getElementById("DiaDot"+(Fade_i + 1)+"").className = 'dot active';
+					document.getElementById("DiaDot"+(Fade_i + 1)+"-"+outputName).className = 'dot active';
 				},(TimeInMs - 50));
 			}else{
 				ChooseOpacity();
-				document.getElementById("DiaDot"+(Fade_i)+"").className = 'dot';
+				document.getElementById("DiaDot"+(Fade_i)+"-"+outputName).className = 'dot';
 				Fade_i = 0;
 				setTimeout(function(){
 					Slider.src = SlideSrcArr[Fade_i];
-					document.getElementById("DiaDot"+(Fade_i + 1)+"").className = 'dot active';
+					document.getElementById("DiaDot"+(Fade_i + 1)+"-"+outputName).className = 'dot active';
 				},(TimeInMs - 50));
 			}
 		});
@@ -449,7 +452,7 @@ function Sliders(array, outputElem, width, height){
 	}
 	this.Animate = function(time, animTime, animType){
 		TimeInMs = time;
-		document.getElementById("DiaDot1").className = 'dot active';
+		document.getElementById("DiaDot1-"+outputName).className = 'dot active';
 		Slider.style.transition = 'all '+(animTime / 2)+'ms ease-in-out';
 		SliderText.style.transition = 'all '+(animTime / 2)+'ms ease-in-out';
 		Vorige.parentNode.removeChild(Vorige);
@@ -460,23 +463,23 @@ function Sliders(array, outputElem, width, height){
 				if(Fade_i < SlideSrcArr.length){
 					Slider.style.opacity = 0;
 					SliderText.style.opacity = 0;
-					document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
+					document.getElementById("DiaDot"+(Fade_i)+"-"+outputName).className = 'dot';
 					setTimeout(function(){
 						Slider.src = SlideSrcArr[Fade_i];
 						SliderText.innerHTML = TextArr[Fade_i];
-						document.getElementById("DiaDot"+(Fade_i + 1)).className = 'dot active';
+						document.getElementById("DiaDot"+(Fade_i + 1)+"-"+outputName).className = 'dot active';
 						Slider.style.opacity = 1;
 						SliderText.style.opacity = 1;
 					}, animTime / 2);
 				}else { 
-					document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
+					document.getElementById("DiaDot"+(Fade_i)+"-"+outputName).className = 'dot';
 					Fade_i = 0;
 					Slider.style.opacity = 0;
 					SliderText.style.opacity = 0;
 					setTimeout(function(){
 						Slider.src = SlideSrcArr[Fade_i];
 						SliderText.innerHTML = TextArr[Fade_i];
-						document.getElementById("DiaDot"+(Fade_i + 1)).className = 'dot active';
+						document.getElementById("DiaDot"+(Fade_i + 1)+"-"+outputName).className = 'dot active';
 						Slider.style.opacity = 1;
 						SliderText.style.opacity = 1;
 					}, animTime / 2);
@@ -486,7 +489,7 @@ function Sliders(array, outputElem, width, height){
 			setInterval(function(){
 				Fade_i++;
 				if(Fade_i < SlideSrcArr.length){
-					document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
+					document.getElementById("DiaDot"+(Fade_i)+"-"+outputName).className = 'dot';
 					Slider.style.transform = 'scale(0)';
 					SliderText.style.opacity = 0;
 					setTimeout(function(){
@@ -497,14 +500,14 @@ function Sliders(array, outputElem, width, height){
 					    SliderText.style.opacity = 1;
 					}, animTime / 2);
 				}else { 
-					document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
+					document.getElementById("DiaDot"+(Fade_i)+"-"+outputName).className = 'dot';
 					Fade_i = 0;
 					Slider.style.transform = 'scale(0)';
 					SliderText.style.opacity = 0;
 					setTimeout(function(){
 						Slider.src = SlideSrcArr[Fade_i];
 						SliderText.innerHTML = TextArr[Fade_i];
-						document.getElementById("DiaDot"+(Fade_i + 1)).className = 'dot active';
+						document.getElementById("DiaDot"+(Fade_i + 1)+"-"+outputName).className = 'dot active';
 						Slider.style.transform = 'scale(1)';
 					    SliderText.style.opacity = 1;
 					}, animTime / 2);
@@ -517,26 +520,26 @@ function Sliders(array, outputElem, width, height){
 				Fade_i++;
 				degrees += 180;
 				if(Fade_i < SlideSrcArr.length){
-					document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
+					document.getElementById("DiaDot"+(Fade_i)+"-"+outputName).className = 'dot';
 					Slider.style.transform = 'rotate('+degrees+'deg)';
 					SliderText.style.opacity = 0;
 					setTimeout(function(){
 						Slider.src = SlideSrcArr[Fade_i];
 						SliderText.innerHTML = TextArr[Fade_i];
-						document.getElementById("DiaDot"+(Fade_i + 1)).className = 'dot active';
+						document.getElementById("DiaDot"+(Fade_i + 1)+"-"+outputName).className = 'dot active';
 						degrees += 180;
 						Slider.style.transform = 'rotate('+degrees+'deg)';
 					    SliderText.style.opacity = 1;
 					}, (animTime / 2));
 				}else { 
-					document.getElementById("DiaDot"+(Fade_i)).className = 'dot';
+					document.getElementById("DiaDot"+(Fade_i)+"-"+outputName).className = 'dot';
 					Fade_i = 0;
 					Slider.style.transform = 'rotate(0)';
 					SliderText.style.opacity = 0;
 					setTimeout(function(){
 						Slider.src = SlideSrcArr[Fade_i];
 						SliderText.innerHTML = TextArr[Fade_i];
-						document.getElementById("DiaDot"+(Fade_i + 1)).className = 'dot active';
+						document.getElementById("DiaDot"+(Fade_i + 1)+"-"+outputName).className = 'dot active';
 						degrees += 180;
 						Slider.style.transform = 'rotate('+degrees+'deg)';
 					    SliderText.style.opacity = 1;
@@ -547,7 +550,7 @@ function Sliders(array, outputElem, width, height){
 	}
 	this.DotsColorFixed = function(color, hoverColor){
 		for(var i = 0; i < SlideSrcArr.length; i++){
-			var dot = document.getElementById("DiaDot"+(i + 1)+"");
+			var dot = document.getElementById("DiaDot"+(i + 1)+"-"+outputName);
 			dot.style.backgroundColor = color;
 		}
 	};
@@ -566,3 +569,4 @@ function Sliders(array, outputElem, width, height){
     }
 	loadAllImages();
 }
+document.body.onload = ExtensionSheets();
