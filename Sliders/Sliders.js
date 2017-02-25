@@ -265,10 +265,9 @@ function Sliders(array, outputElem, width, height){
 		SliderText.style.maxHeight = '1.3em';
 		SliderText.style.bottom = '100px';
 	}
-	if(width == 250 && height == 200){
+	if(width == 250 && height == 200 && SlideSrcArr.length >= 7){
 		var SlidePointsDiv = document.getElementById("SlidePoints");
 		SlidePointsDiv.style.width = width - 85 + "px";
-		SlidePointsDiv.style.textAlign = 'center';
 		for(var i = 0; i < SlideSrcArr.length; i++){
 			var dot = document.getElementById("DiaDot"+(i + 1)+"");
 			dotspwidth = parseInt(SlidePointsDiv.style.width.split("px")[0]);
