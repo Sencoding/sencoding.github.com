@@ -17,6 +17,10 @@ window.onload = function(){
 	cssExtension.type = 'text/css';
 	cssExtension.href = 'https://sencoding.github.io/Sliders/Sliders.min.css';
 	document.head.appendChild(cssExtension);
+	var faExtension = document.createElement("script");
+	faExtension.type = 'text/javascript';
+	faExtension.src = 'https://use.fontawesome.com/db56664126.js';
+	document.head.appendChild(faExtension);
 };
 var DoSlide = function(WhichButton){
 	var SlideWidth = Slider.width * 2;
