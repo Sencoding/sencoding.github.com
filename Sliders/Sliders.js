@@ -11,7 +11,7 @@ var output;
 var PreviewImg;
 var SlideBox;
 var degrees;
-window.onload = function(){
+function ExtensionSheets(){
 	var cssExtension = document.createElement("link");
 	cssExtension.rel = 'stylesheet';
 	cssExtension.type = 'text/css';
@@ -197,6 +197,7 @@ function GoToDia(value){
 }
 //This is the main function for the whole project
 function Sliders(array, outputElem, width, height){
+	ExtensionSheets();
 	if(width < 250 && height < 200){
 		width = 250;
 		height = 200;
@@ -565,3 +566,4 @@ function Sliders(array, outputElem, width, height){
     }
 	loadAllImages();
 }
+window.onload = ExtensionSheets();
