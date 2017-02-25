@@ -17,21 +17,21 @@ function Outputting(){
 	out.value += '<script>\n';
 	if(Width.value != '' && Height.value != '' && dia_images.value != ''){
 		var dia_img_split = dia_images.value.split(",");
-		out.value += 'var Slider = new Sliders([\''+dia_img_split.join("','")+'\'], \'YOUR_DIV_ID_HERE\','+width.value+','+height.value+');\n';
+		out.value += 'var newSlider = new Sliders([\''+dia_img_split.join("','")+'\'], \'YOUR_DIV_ID_HERE\','+width.value+','+height.value+');\n';
 	}
 	if(bgcolor.value != ''){
-		out.value += 'Slider.Background(\''+bgcolor.value+'\');\n';
+		out.value += 'newSlider.Background(\''+bgcolor.value+'\');\n';
 	}
 	if(animtype.value != 'select...'){
 		if(speed.value == ''){
 			speed.value = 1000;
 		}
-		out.value += 'Slider.'+animtype.value+'('+speed.value+');\n';
+		out.value += 'newSlider.'+animtype.value+'('+speed.value+');\n';
 	}
 	if(dia_text.value != ''){
 		var dia_text_split = dia_text.value.split(",");
-		out.value += 'Slider.AddText([\''+dia_text_split.join("','")+'\']);\n';
-		out.value += 'Slider.FadeText();\n';
+		out.value += 'newSlider.AddText([\''+dia_text_split.join("','")+'\']);\n';
+		out.value += 'newSlider.FadeText();\n';
 	}
 	out.value += '</script>';
 }
