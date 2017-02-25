@@ -163,7 +163,7 @@ var ChooseOpacity = function(){
 	},TimeInMs);
 };
 var HidePreviewImg = function(value){
-	document.getElementById("triangle"+value).style.display = 'none';
+	document.getElementById("triangle"+value+"-"+outputName).style.display = 'none';
 	document.getElementById("PreviewImgDiv-"+outputName).style.display = 'none';
 };
 var ShowPreviewImg = function(value){
@@ -171,7 +171,7 @@ var ShowPreviewImg = function(value){
 	var PreviewImg = document.getElementById("PreviewImg-"+outputName);
 	PreviewImg.src = SlideSrcArr[value - 1];
 	PreviewImgDiv.style.display = '';
-	document.getElementById("triangle"+value).style.display = '';
+	document.getElementById("triangle"+value+"-"+outputName).style.display = '';
 	PreviewImgDiv.style.height = PreviewImg.height + "px";
 	PreviewImgDiv.style.width = PreviewImg.width + "px";
 	PreviewImgDiv.style.marginTop = "-110px";
@@ -231,7 +231,7 @@ function Sliders(array, outputElem, width, height){
 	SlidePoints.id = 'SlidePoints-'+outputName;
 	SlidePoints.style = 'display:inline-block;position:relative;bottom:45px;z-index:9999;';
 	for(var i = 0; i < SlideSrcArr.length; i++){
-		SlidePoints.innerHTML += '<div class="dot" id="DiaDot'+(i + 1)+'-'+outputName+'" onclick="GoToDia('+(i + 1)+')" onmouseover="ShowPreviewImg('+(i + 1)+');" onmouseout="HidePreviewImg('+(i +1)+');"><div id="triangle'+(i + 1)+'" class="arrow-down" style="display:none;"></div></div>';
+		SlidePoints.innerHTML += '<div class="dot" id="DiaDot'+(i + 1)+'-'+outputName+'" onclick="GoToDia('+(i + 1)+')" onmouseover="ShowPreviewImg('+(i + 1)+');" onmouseout="HidePreviewImg('+(i +1)+');"><div id="triangle'+(i + 1)+'-'+outputName+'" class="arrow-down" style="display:none;"></div></div>';
 	}
 	//settings for the Text element that will be set into the named output
 	var Text = document.createElement('div');
