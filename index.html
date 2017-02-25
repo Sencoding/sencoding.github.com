@@ -25,14 +25,14 @@ Animation Type: <select id="AnimTypes">
 </select>
 Speed In Milliseconds: <input type="number" step="100" style="width:60px;" id="Speed">
 <br/>
-<textarea  id="DiaImages" placeholder="the url's of your slide images seperated by a comma each"></textarea>
+<textarea  id="DiaImages" placeholder="the url's of your slide images seperated by a comma each" style="resize:none;"></textarea>
 <br/>
-<textarea id="DiaText" placeholder="the text you want by your slide images, make sure you do this in the same order" style="height:60px"></textarea>
+<textarea id="DiaText" placeholder="the text you want by your slide images, make sure you do this in the same order" style="height:60px;resize:none;"></textarea>
 <br/>
 <button id="Submit" onclick="Outputting();">Get Code</button>
 <button id="addscript">See Preview</button>
 <br/>
-<textarea id="javascriptOutput" placeholder="javascript code..." style="width:400px;height:300px;"></textarea>
+<textarea id="javascriptOutput" placeholder="the code here you can place in your html body tag to let it work..." style="width:400px;height:300px;resize:none;"></textarea>
 <script id="scriptPreview"></script>
 <script src="index.js"></script>
 </center>

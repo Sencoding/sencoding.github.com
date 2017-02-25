@@ -10,7 +10,7 @@ var addscript = document.getElementById("addscript");
 var animtype = document.getElementById("AnimTypes");
 var speed = document.getElementById("Speed");
 addscript.addEventListener("click", function(){
-	script.innerHTML = eval(out.value);
+	script.innerHTML = eval(out.value.split("<script>")[1].split("</script>")[0]);
 });
 function Outputting(){
 	out.value = '<script type="text/javascript" src="https://sencoding.github.io/Sliders.js"></script>\n';

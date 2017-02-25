@@ -370,9 +370,10 @@ function Sliders(array, outputElem, width, height){
 	this.AddText = function(TextSrcArr){
 		TextArr = TextSrcArr;
 		if(TextSrcArr[Fade_i] != null){
-			window.onload = function(){
 				SliderText.innerHTML = TextSrcArr[Fade_i];
-			}
+				window.onload = function(){
+					SliderText.innerHTML = TextSrcArr[Fade_i];
+				}
 		}else{
 			SliderText.innerHTML = '';
 		}
