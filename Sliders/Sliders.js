@@ -566,4 +566,3 @@ function Sliders(array, outputElem, width, height){
     }
 	loadAllImages();
 }
-window.onload = ExtensionSheets();
