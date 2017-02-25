@@ -8,8 +8,35 @@
 </head>
 <body>
 <script src="Sliders.js"></script>
-<div id="SliderSlide"></div>
-<script>
+<center>
+<div id="YOUR_DIV_ID_HERE"></div>
+<h3>Customizing your own slider</h3>
+<input type="number" id="width" placeholder="Width" style="width:60px;" step="10" >
+<input type="number" id="height" placeholder="Height" style="width:60px;" step="10">
+<br/>
+<input type="text" id="BgColor" placeholder="your background color for the slider here...">
+<br/>
+Animation Type: <select id="AnimTypes">
+<option>select...</option>
+<option>Scale</option>
+<option>Slide</option>
+<option>Rotate</option>
+<option>Fade</option>
+</select>
+Speed In Milliseconds: <input type="number" step="100" style="width:60px;" id="Speed">
+<br/>
+<textarea  id="DiaImages" placeholder="the url's of your slide images seperated by a comma each"></textarea>
+<br/>
+<textarea id="DiaText" placeholder="the text you want by your slide images, make sure you do this in the same order" style="height:60px"></textarea>
+<br/>
+<button id="Submit" onclick="Outputting();">Get Code</button>
+<button id="addscript">See Preview</button>
+<br/>
+<textarea id="javascriptOutput" placeholder="javascript code..." style="width:400px;height:300px;"></textarea>
+<script id="scriptPreview"></script>
+<script src="index.js"></script>
+</center>
+<!--<script>
 var SlideArr = [];
 SlideArr[0] = 'http://wallpaperspoints.com/wp-content/uploads/2013/05/grey-backgrounds-black-shade-wallpper-500x400.jpg';
 SlideArr[1] = 'http://creativefan.com/files/2010/01/Pepper_Project_Wallpaper_by_PepperProject-500x400.jpg';
@@ -28,6 +55,6 @@ TextArr[4] = 'This is image 5';
 TextArr[5] = 'This is image 6';
 SlideSlider.AddText(TextArr);
 SlideSlider.FadeText();
-</script>
+</script>-->
 </body>
 </html>
