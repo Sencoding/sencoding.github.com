@@ -21,7 +21,7 @@ window.onload = function(){
 	faExtension.type = 'text/javascript';
 	faExtension.src = 'https://use.fontawesome.com/db56664126.js';
 	document.head.appendChild(faExtension);
-};
+}
 var DoSlide = function(WhichButton){
 	var SlideWidth = Slider.width * 2;
 	Slider.style = 'height:'+SlideBox.style.height+';transition:all '+TimeInMs+'ms ease-in-out 0s;opacity:1;';
