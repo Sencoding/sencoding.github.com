@@ -13,7 +13,7 @@ addscript.addEventListener("click", function(){
 	script.innerHTML = eval(out.value.split("<script>")[1].split("</script>")[0]);
 });
 function Outputting(){
-	out.value = '<script type="text/javascript" src="https://sencoding.github.io/Sliders.js"></script>\n';
+	out.value = '<script type="text/javascript" src="https://sencoding.github.io/Sliders/Sliders.js"></script>\n';
 	out.value += '<script>\n';
 	if(Width.value != '' && Height.value != '' && dia_images.value != ''){
 		var dia_img_split = dia_images.value.split(",");

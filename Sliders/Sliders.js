@@ -11,6 +11,13 @@ var output;
 var PreviewImg;
 var SlideBox;
 var degrees;
+window.onload = function(){
+	var cssExtension = document.createElement("link");
+	cssExtension.rel = 'stylesheet';
+	cssExtension.type = 'text/css';
+	cssExtension.href = 'https://sencoding.github.io/Sliders/Sliders.min.css';
+	document.head.appendChild(cssExtension);
+};
 var DoSlide = function(WhichButton){
 	var SlideWidth = Slider.width * 2;
 	Slider.style = 'height:'+SlideBox.style.height+';transition:all '+TimeInMs+'ms ease-in-out 0s;opacity:1;';

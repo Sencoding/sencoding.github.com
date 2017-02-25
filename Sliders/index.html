@@ -11,28 +11,28 @@
 <center>
 <div id="YOUR_DIV_ID_HERE"></div>
 <h3>Customizing your own slider</h3>
-<input type="number" id="width" placeholder="Width" style="width:60px;" step="10" >
-<input type="number" id="height" placeholder="Height" style="width:60px;" step="10">
+<input type="number" id="width" placeholder="Width" style="width:60px;" class="form-styling" step="10" >
+<input type="number" id="height" placeholder="Height" style="width:60px;" class="form-styling" step="10">
 <br/>
-<input type="text" id="BgColor" placeholder="your background for the slider here...">
+<input type="text" id="BgColor" class="form-styling" placeholder="your background for the slider here...">
 <br/>
-Animation Type: <select id="AnimTypes">
+Animation Type: <select id="AnimTypes" class="form-styling">
 <option>select...</option>
 <option>Scale</option>
 <option>Slide</option>
 <option>Rotate</option>
 <option>Fade</option>
 </select>
-Speed In Milliseconds: <input type="number" step="100" style="width:60px;" id="Speed">
+Speed In Milliseconds: <input type="number" step="100" style="width:60px;" class="form-styling" id="Speed">
 <br/>
-<textarea  id="DiaImages" placeholder="the url's of your slide images seperated by a comma each" style="resize:none;"></textarea>
+<textarea  id="DiaImages" placeholder="the url's of your slide images seperated by a comma each" style="resize:none;" class="form-styling"></textarea>
 <br/>
-<textarea id="DiaText" placeholder="the text you want by your slide images, make sure you do this in the same order" style="height:60px;resize:none;"></textarea>
+<textarea id="DiaText" placeholder="the text you want by your slide images, make sure you do this in the same order" style="height:60px;resize:none;" class="form-styling"></textarea>
 <br/>
 <button id="Submit" onclick="Outputting();">Get Code</button>
 <button id="addscript">See Preview</button>
 <br/>
-<textarea id="javascriptOutput" placeholder="the code here you can place in your html body tag to let it work..." style="width:400px;height:300px;resize:none;"></textarea>
+<textarea id="javascriptOutput" placeholder="the code here you can place in your html body tag to let it work..." style="width:400px;height:300px;resize:none;" class="form-styling"></textarea>
 <script id="scriptPreview"></script>
 <script src="index.js"></script>
 </center>
