@@ -19,7 +19,7 @@ function Game(playground_div, width, height){
 	GDiv.style.height = this.height+"px";
 	GDiv.style.overflow = 'hidden';
 	GDiv.style.border = '2px solid #aaa';
-	GDiv.style.cursor = 'url("https://sencoding.github.io/Cursors/game.ico"),default';
+	GDiv.style.cursor = 'url("https://sencoding.github.io/Cursors/game.ico")';
 	GDiv.className = 'noselect';
 	this.Start = function(gamecode){
 		var button = document.createElement("button");
