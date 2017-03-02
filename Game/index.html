@@ -1,0 +1,39 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Game Project</title>
+<script type="text/javascript" src="index.js"></script>
+</head>
+<body style="overflow:hidden;">
+<div id="game"></div>
+<script>
+var game = new Game('game', 500, 400);
+game.Start(function(){
+game.Level(1);
+var i = 0;
+setInterval(function(){
+i++;
+if(i<6){
+var eddies = new Enemy(10,65,40,1,'yellow','circle','eddy-'+i);
+eddies.damage = 10;
+eddies.move(1, eddies);
+eddies.hp = 10;
+}
+},1300);
+setTimeout(function(){
+var j = 0;
+setInterval(function(){
+j++;
+if(j<3){
+var teddies = new Enemy(10,65,40,2,'green','box','teddy-'+j);
+teddies.damage = 11;
+teddies.move(1, teddies);
+teddies.hp = 30;
+}
+},800);
+},3000);
+});
+</script>
+</body>
+</html>
